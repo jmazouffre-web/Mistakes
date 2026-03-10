@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://1ajvln17t0aq"]
+
+[ext_resource type="Script" uid="uid://bij2y778byyrx" path="res://Scripts/RigidBody3d.cs" id="1_mvxmr"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_mvxmr"]
+bounce = 0.6
+
+[sub_resource type="SphereMesh" id="SphereMesh_ba4mr"]
+radius = 0.3
+height = 0.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mvxmr"]
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_n1c64"]
+radius = 0.3
+
+[node name="RigidBody3D" type="RigidBody3D" groups=["GrableObject"]]
+collision_layer = 2
+collision_mask = 5
+physics_material_override = SubResource("PhysicsMaterial_mvxmr")
+script = ExtResource("1_mvxmr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_ba4mr")
+surface_material_override/0 = SubResource("StandardMaterial3D_mvxmr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_n1c64")
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+aabb = AABB(-0.37141055, -0.24636644, -0.4221351, 0.7428211, 0.6460532, 0.8442702)

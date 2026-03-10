@@ -1,0 +1,57 @@
+[gd_scene load_steps=11 format=3 uid="uid://20a2jhs6d10m"]
+
+[ext_resource type="PackedScene" uid="uid://b2pngcq2138y4" path="res://Model/models/glb/house1.glb" id="1_a0ft4"]
+[ext_resource type="Texture2D" uid="uid://bh6tw5n40qv3s" path="res://Model/models/glb/textures/512x512/house1_tex1.png" id="2_qimfx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uppoi"]
+albedo_texture = ExtResource("2_qimfx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ppv5x"]
+albedo_texture = ExtResource("2_qimfx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c18ew"]
+albedo_texture = ExtResource("2_qimfx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pnqha"]
+albedo_texture = ExtResource("2_qimfx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xysu5"]
+albedo_texture = ExtResource("2_qimfx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kbv2f"]
+albedo_texture = ExtResource("2_qimfx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ht1i"]
+albedo_texture = ExtResource("2_qimfx")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a0ft4"]
+size = Vector3(1.3733482, 1.8251953, 1.986084)
+
+[node name="house12" instance=ExtResource("1_a0ft4")]
+
+[node name="house1" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_uppoi")
+
+[node name="house1_door1" parent="house1" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_ppv5x")
+
+[node name="house1_door2" parent="house1" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_c18ew")
+
+[node name="house1_door3" parent="house1" index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_pnqha")
+
+[node name="house1_door_closet1" parent="house1" index="3"]
+surface_material_override/0 = SubResource("StandardMaterial3D_xysu5")
+
+[node name="house1_door_closet2" parent="house1" index="4"]
+surface_material_override/0 = SubResource("StandardMaterial3D_kbv2f")
+
+[node name="house1_windows" parent="house1" index="5"]
+material_override = SubResource("StandardMaterial3D_5ht1i")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.731568, -0.68176854, 0, 0.68176854, 0.731568, 0.0066154003, -0.19395366, 7.6287947)
+shape = SubResource("BoxShape3D_a0ft4")

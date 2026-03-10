@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsd4tgele3s70"]
+
+[ext_resource type="PackedScene" uid="uid://20a2jhs6d10m" path="res://house_model.tscn" id="1_hfkix"]
+
+[node name="House" type="Node3D"]
+
+[node name="house12" parent="." instance=ExtResource("1_hfkix")]

@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://b7m07psdbntqf"]
+
+[ext_resource type="Script" uid="uid://bl2713vvr8tqj" path="res://Scripts/Main.cs" id="1_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://cx4fcqipwyqb6" path="res://player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://1ajvln17t0aq" path="res://rigid_body_3d.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://621va8x4byx5" path="res://cage.tscn" id="3_h2yge"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_7dm0k"]
+size = Vector3(60, 0.5, 60)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ig7tw"]
+size = Vector3(60, 0.5, 60)
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_1bvp3")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_mask = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_7dm0k")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_ig7tw")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.3519559, 0.93601656, 0, -0.93601656, -0.3519559, 0, 14.124838, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("1_ig7tw")]
+transform = Transform3D(-0.9984193, 0, 0.056205034, 0, 1, 0, -0.056205034, 0, -0.9984193, 0, 0.23772216, 0)
+
+[node name="RigidBody3D" parent="." instance=ExtResource("2_0xm2m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04391241, 4.471625, 2.6655645)
+
+[node name="StaticBody3D2" parent="." instance=ExtResource("3_h2yge")]
+transform = Transform3D(-3, 0, -2.6226832e-07, 0, 3, 0, 2.6226832e-07, 0, -3, 0.7761617, 0.33944798, 12.686432)
+collision_layer = 1
+
+[connection signal="Grab" from="Player" to="." method="OnGrab"]
+[connection signal="Throwing" from="Player" to="." method="OnPlayerThrowing"]

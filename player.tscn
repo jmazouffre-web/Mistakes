@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://cx4fcqipwyqb6"]
+
+[ext_resource type="Script" uid="uid://dqlm052rnrj" path="res://Scripts/Player.cs" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://drk3yf38llif" path="res://Scripts/Camera3d.cs" id="2_onrkg"]
+[ext_resource type="Script" uid="uid://clkultgcrvt1s" path="res://Scripts/ObjectDetector.cs" id="3_i3pqv"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_sh265"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4flbx"]
+radius = 0.46679688
+height = 1.7094727
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i3pqv"]
+transparency = 1
+blend_mode = 1
+albedo_color = Color(1, 0, 1, 0.85882354)
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 4
+script = ExtResource("1_4flbx")
+rotationAmount = 0.1
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0079547, 0)
+mesh = SubResource("CapsuleMesh_sh265")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8731859, 0)
+shape = SubResource("CapsuleShape3D_4flbx")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4846351, 0.010253191)
+script = ExtResource("2_onrkg")
+rotationAmount = 0.05
+
+[node name="HoldedItem" type="Node3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.33410954, -0.40971184, -0.3983915)
+
+[node name="ObjectDetector" type="RayCast3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -1)
+target_position = Vector3(0, -2, 0)
+collision_mask = 3
+script = ExtResource("3_i3pqv")
+placeHolderMaterial = SubResource("StandardMaterial3D_i3pqv")
+
+[node name="AimPoint" type="Node3D" parent="Camera3D/ObjectDetector"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10.828449, 0.07701993)
+
+[connection signal="Grab" from="Camera3D/ObjectDetector" to="." method="OnGrab"]
+[connection signal="Throwing" from="Camera3D/ObjectDetector" to="." method="OnObjectDetectorThrowing"]
