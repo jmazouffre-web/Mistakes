@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://bsoa2h1irtefp"]
+
+[ext_resource type="Script" uid="uid://c5nlt7wdqxadi" path="res://Scripts/Cyllinder.cs" id="1_d3oir"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5pktc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d3oir"]
+albedo_color = Color(1, 0.101960786, 1, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_e38oc"]
+
+[node name="RigidBody3D" type="RigidBody3D"]
+transform = Transform3D(1, 1.131334e-08, 1.48943e-09, -1.131334e-08, 0.9659258, 0.25881904, 1.48943e-09, -0.25881904, 0.9659258, 0, 0, 0)
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_d3oir")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0051346, 0)
+mesh = SubResource("CylinderMesh_5pktc")
+surface_material_override/0 = SubResource("StandardMaterial3D_d3oir")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0051346, 0)
+shape = SubResource("CylinderShape3D_e38oc")
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0051346, 0)
+aabb = AABB(-0.6929938, -1, -0.72769773, 1.3859876, 2, 1.4553955)

@@ -1,41 +1,227 @@
-[gd_scene load_steps=7 format=3 uid="uid://b7m07psdbntqf"]
+[gd_scene load_steps=13 format=3 uid="uid://b7m07psdbntqf"]
 
 [ext_resource type="Script" uid="uid://bl2713vvr8tqj" path="res://Scripts/Main.cs" id="1_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://cx4fcqipwyqb6" path="res://player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://1ajvln17t0aq" path="res://rigid_body_3d.tscn" id="2_0xm2m"]
-[ext_resource type="PackedScene" uid="uid://621va8x4byx5" path="res://cage.tscn" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://ddfjrn4jl73l5" path="res://Scripts/AnxietyDebugLabel.cs" id="3_7mycd"]
+[ext_resource type="Script" uid="uid://c0g3lxkhx5bpg" path="res://Scripts/Area3d.cs" id="5_lquwl"]
+[ext_resource type="Script" uid="uid://b1aknheim0hi2" path="res://Scripts/EndScreen.cs" id="7_272bh"]
+[ext_resource type="Script" uid="uid://s544xa11cp2s" path="res://Scripts/BeginScreen.cs" id="8_5vw27"]
+[ext_resource type="Script" uid="uid://cfma75jcdjinq" path="res://Scripts/LooseScreen.cs" id="9_kek77"]
+[ext_resource type="PackedScene" uid="uid://byokgvsgh2eq2" path="res://abandoned_house.tscn" id="10_4c57u"]
+[ext_resource type="Script" uid="uid://dhijt4b150tj1" path="res://Scripts/GameTimer.cs" id="10_efxa6"]
+[ext_resource type="PackedScene" uid="uid://bkwhdtmkbhesa" path="res://cafe.tscn" id="11_efxa6"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_7dm0k"]
-size = Vector3(60, 0.5, 60)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_ig7tw"]
-size = Vector3(60, 0.5, 60)
+[sub_resource type="BoxShape3D" id="BoxShape3D_1bvp3"]
+size = Vector3(2, 2.5786133, 1)
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_1bvp3")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-collision_mask = 0
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
-mesh = SubResource("BoxMesh_7dm0k")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-shape = SubResource("BoxShape3D_ig7tw")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.3519559, 0.93601656, 0, -0.93601656, -0.3519559, 0, 14.124838, 0)
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
-transform = Transform3D(-0.9984193, 0, 0.056205034, 0, 1, 0, -0.056205034, 0, -0.9984193, 0, 0.23772216, 0)
+transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, -31.389786, 3.4835196, -33.249504)
 
-[node name="RigidBody3D" parent="." instance=ExtResource("2_0xm2m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04391241, 4.471625, 2.6655645)
+[node name="UserInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -4.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="StaticBody3D2" parent="." instance=ExtResource("3_h2yge")]
-transform = Transform3D(-3, 0, -2.6226832e-07, 0, 3, 0, 2.6226832e-07, 0, -3, 0.7761617, 0.33944798, 12.686432)
-collision_layer = 1
+[node name="AnxietyDebugLabel" type="Label" parent="UserInterface"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 26.0
+offset_bottom = 18.0
+script = ExtResource("3_7mycd")
 
+[node name="Abandoned_House" parent="." instance=ExtResource("10_4c57u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 99.241844)
+
+[node name="Key1" parent="." instance=ExtResource("2_0xm2m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.92403, 3.943614, -32.285423)
+Id = 1
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_mask = 4
+script = ExtResource("5_lquwl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.5, 0.78930664, -18)
+shape = SubResource("BoxShape3D_1bvp3")
+
+[node name="Key2" parent="." instance=ExtResource("2_0xm2m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.50343, 0.07896924, -21.358501)
+Id = 2
+
+[node name="EndScreen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_272bh")
+
+[node name="ColorRect" type="ColorRect" parent="EndScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.16501868, 0.0003473837, 0.32039523, 1)
+
+[node name="Label" type="Label" parent="EndScreen/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "BRAVO !  VOUS AVEZ REUSSI A FINIR LA DEMO DE MISTAKES !"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Key10" parent="." instance=ExtResource("2_0xm2m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.85772, -3.7158046, -27.383265)
+Id = 10
+
+[node name="Key9" parent="." instance=ExtResource("2_0xm2m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.62872, 0.89237463, -27.829165)
+Id = 9
+
+[node name="Key4" parent="." instance=ExtResource("2_0xm2m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.449602, 0.7439451, -21.358501)
+Id = 4
+
+[node name="Key5" parent="." instance=ExtResource("2_0xm2m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.825676, 1.1358147, -31.37504)
+Id = 5
+
+[node name="Key3" parent="." instance=ExtResource("2_0xm2m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.076626, -0.1126039, -24.904722)
+Id = 3
+
+[node name="Key6" parent="." instance=ExtResource("2_0xm2m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.93696, 0.8324809, -35.747196)
+Id = 6
+
+[node name="Key7" parent="." instance=ExtResource("2_0xm2m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.73341, 4.103808, -21.857008)
+Id = 7
+
+[node name="Key8" parent="." instance=ExtResource("2_0xm2m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.18636, 3.5047903, -38.151756)
+Id = 8
+
+[node name="BeginScreen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_5vw27")
+
+[node name="ColorRect" type="ColorRect" parent="BeginScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.16501868, 0.0003473837, 0.32039523, 1)
+
+[node name="Label" type="Label" parent="BeginScreen/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "BIENVENUE DANS MISTAKE
+VOUS VOUS RÉVEILLEZ DANS UNE MAISON ABANDONNÉE ET VOUS DEVEZ TROUVER LES CLÉS POUR SORTIR.
+
+ATTENTION À VOTRE JAUGE D'ANXIÉTÉ !
+
+A : BOIRE / OUVRIR LES PORTES
+F : PRENDRE / JETER UN OBJET
+E : POSER UN OBJET
+FLÈCHES DIRECTIONNELLES : CAMÉRA
+ZQSD : SE DÉPLACER
+SHIFT : COURIR
+ESPACE : SAUTER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LooseScreen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_kek77")
+
+[node name="ColorRect" type="ColorRect" parent="LooseScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.16501868, 0.0003473837, 0.32039523, 1)
+
+[node name="Label" type="Label" parent="LooseScreen/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "DOMMAGE !
+VOUS N'AVEZ PAS RÉUSSI À SORTIR À TEMPS !"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameTimer" type="Timer" parent="."]
+wait_time = 180.0
+one_shot = true
+script = ExtResource("10_efxa6")
+
+[node name="Label" type="Label" parent="GameTimer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+
+[node name="Cafe" parent="." instance=ExtResource("11_efxa6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.889206, 0.8098172, -21.00088)
+
+[node name="Cafe2" parent="." instance=ExtResource("11_efxa6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.371866, 0.8098172, -22.339916)
+
+[node name="Cafe3" parent="." instance=ExtResource("11_efxa6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.523746, 1.0827749, -31.308414)
+
+[node name="Cafe4" parent="." instance=ExtResource("11_efxa6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.08112, 1.0543168, -32.441)
+
+[connection signal="EndGame" from="." to="." method="OnEndGame"]
+[connection signal="AnxietyChange" from="Player" to="." method="OnAnxietyChange"]
 [connection signal="Grab" from="Player" to="." method="OnGrab"]
 [connection signal="Throwing" from="Player" to="." method="OnPlayerThrowing"]
+[connection signal="body_entered" from="Area3D" to="." method="OnEnd"]
+[connection signal="timeout" from="GameTimer" to="." method="OnTimeout"]

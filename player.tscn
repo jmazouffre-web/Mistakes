@@ -1,21 +1,60 @@
-[gd_scene load_steps=7 format=3 uid="uid://cx4fcqipwyqb6"]
+[gd_scene load_steps=10 format=3 uid="uid://cx4fcqipwyqb6"]
 
 [ext_resource type="Script" uid="uid://dqlm052rnrj" path="res://Scripts/Player.cs" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://drk3yf38llif" path="res://Scripts/Camera3d.cs" id="2_onrkg"]
 [ext_resource type="Script" uid="uid://clkultgcrvt1s" path="res://Scripts/ObjectDetector.cs" id="3_i3pqv"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_sh265"]
+radius = 0.2
+height = 1.6
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4flbx"]
-radius = 0.46679688
-height = 1.7094727
+radius = 0.2
+height = 1.6
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i3pqv"]
 transparency = 1
 blend_mode = 1
 albedo_color = Color(1, 0, 1, 0.85882354)
 
+[sub_resource type="Animation" id="Animation_hqtel"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_i3pqv"]
+resource_name = "tripping"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.35, 0.61, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.5235988, 0, 0), Vector3(9.1343e-08, 1.5707963, -1.0471976), Vector3(4.1356415e-08, 1.5707963, -1.5707964), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sweqy"]
+_data = {
+&"RESET": SubResource("Animation_hqtel"),
+&"tripping": SubResource("Animation_i3pqv")
+}
+
 [node name="Player" type="CharacterBody3D"]
+transform = Transform3D(0.99999976, 0, 0, 0, 0.99999976, 0, 0, 0, 0.99999964, 0, 0, 0)
 collision_layer = 4
 script = ExtResource("1_4flbx")
 rotationAmount = 0.1
@@ -39,8 +78,8 @@ rotationAmount = 0.05
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.33410954, -0.40971184, -0.3983915)
 
 [node name="ObjectDetector" type="RayCast3D" parent="Camera3D"]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -1)
-target_position = Vector3(0, -2, 0)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -0.027423855)
+target_position = Vector3(0, -3, 0)
 collision_mask = 3
 script = ExtResource("3_i3pqv")
 placeHolderMaterial = SubResource("StandardMaterial3D_i3pqv")
@@ -48,5 +87,32 @@ placeHolderMaterial = SubResource("StandardMaterial3D_i3pqv")
 [node name="AimPoint" type="Node3D" parent="Camera3D/ObjectDetector"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10.828449, 0.07701993)
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_sweqy")
+}
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="Drink" from="Camera3D/ObjectDetector" to="." method="OnDrink"]
 [connection signal="Grab" from="Camera3D/ObjectDetector" to="." method="OnGrab"]
 [connection signal="Throwing" from="Camera3D/ObjectDetector" to="." method="OnObjectDetectorThrowing"]
+[connection signal="timeout" from="Timer" to="." method="OnTrippingTimeOut"]

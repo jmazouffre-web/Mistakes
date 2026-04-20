@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=4 uid="uid://iialefokalqc"]
+
+[ext_resource type="Script" uid="uid://cdo7i1u4127io" path="res://Scripts/Porte1.cs" id="1_t8ryo"]
+[ext_resource type="Texture2D" uid="uid://dtkhxikptbaf6" path="res://Models/Abandoned_House_Puerta.jpg" id="2_urw3h"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dl4k8"]
+resource_name = "Puerta"
+cull_mode = 2
+albedo_texture = ExtResource("2_urw3h")
+texture_filter = 2
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_gspea"]
+_surfaces = [{
+"aabb": AABB(-0.8799031, -0.9787757, -0.022534259, 0.8743541, 2.1310139, 0.045068517),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAQADAAIAAAAEAAEAAgADAAUAAgAFAAAAAAAGAAQAAAAFAAYABAAHAAEAAQAHAAMABAAGAAcABQADAAcABQAHAAYA"),
+"name": "Puerta",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AAAAAP//AAD//wAAAAAAAAAAAAAAAAAAAAD//wAAAAD//wAA//8AAAAA/////wAA////////AAD/////AAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_8usyg"]
+resource_name = "Abandoned_House_Plane_066"
+_surfaces = [{
+"aabb": AABB(-0.8799031, -0.9787757, -0.022534259, 0.8743541, 2.1310139, 0.045068517),
+"attribute_data": PackedByteArray("///GwGd/Cr7//wq+Z3/GwP//xsBnfwq+Z3/GwP//Cr4Dw///YrzRfmK8//8Dw9F+Yrz//wPD0X4Dw///YrzRfmd//////9F+/////2d/0X7/////Z3/Rfmd//////9F+"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUA"),
+"material": SubResource("StandardMaterial3D_dl4k8"),
+"name": "Puerta",
+"primitive": 3,
+"uv_scale": Vector4(2.0093336, 2.01859, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AAAAAP///////wAAAAD//wAAAAAAAP////8AAP////8AAP////8AAP////8AAAAA////////AAAAAP//AAAAAP//AAD//wAA/////wAAAAD//wAAAAAAAP///////wAAAAAAAAAA/78AAP//////vwAAAAD///+/AAD//wAA/7///wAAAAD//wAA//8AAP//AAAAAAAA////////AAD//wAAAAD//wAA////////AAD//wAA//8AAAAA/////wAA/3//P/9//z//f/8//3//P/9//7//f/+//3//v/9//7//v/9//7//f/+//3//v/9//3////9/////f////3////9/////f////3////9/////f/9//3//f/9//3//f/9/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_gspea")
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_r8ndd"]
+data = PackedVector3Array(-0.8799, -0.9788, 0.022499999, -0.0055, -0.9788, -0.022499999, -0.8799, -0.9788, -0.022499999, -0.8799, -0.9788, 0.022499999, -0.0055, -0.9788, 0.022499999, -0.0055, -0.9788, -0.022499999, -0.8799, 1.1522, 0.022499999, -0.0055, 1.1522, -0.022499999, -0.0055, 1.1522, 0.022499999, -0.8799, 1.1522, 0.022499999, -0.8799, 1.1522, -0.022499999, -0.0055, 1.1522, -0.022499999, -0.0055, -0.9788, 0.022499999, -0.0055, 1.1522, -0.022499999, -0.0055, -0.9788, -0.022499999, -0.0055, -0.9788, 0.022499999, -0.0055, 1.1522, 0.022499999, -0.0055, 1.1522, -0.022499999, -0.8799, -0.9788, -0.022499999, -0.8799, 1.1522, 0.022499999, -0.8799, -0.9788, 0.022499999, -0.8799, -0.9788, -0.022499999, -0.8799, 1.1522, -0.022499999, -0.8799, 1.1522, 0.022499999, -0.0055, -0.9788, -0.022499999, -0.8799, 1.1522, -0.022499999, -0.8799, -0.9788, -0.022499999, -0.0055, -0.9788, -0.022499999, -0.0055, 1.1522, -0.022499999, -0.8799, 1.1522, -0.022499999, -0.8799, -0.9788, 0.022499999, -0.0055, 1.1522, 0.022499999, -0.0055, -0.9788, 0.022499999, -0.8799, -0.9788, 0.022499999, -0.8799, 1.1522, 0.022499999, -0.0055, 1.1522, 0.022499999)
+
+[node name="Porte1" type="StaticBody3D"]
+transform = Transform3D(-1.0937274, 0, 0, 0, 1, 0, 0, 0, 1, -2.2308984, -1.5965116, -4.1589813)
+script = ExtResource("1_t8ryo")
+
+[node name="Puerta" type="MeshInstance3D" parent="."]
+mesh = SubResource("ArrayMesh_8usyg")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConcavePolygonShape3D_r8ndd")

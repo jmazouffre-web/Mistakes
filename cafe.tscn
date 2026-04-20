@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://bkwhdtmkbhesa"]
+
+[ext_resource type="Script" uid="uid://dw1bf2y177ry" path="res://Scripts/Cafe.cs" id="1_p445j"]
+[ext_resource type="PackedScene" uid="uid://dj4fek0essan2" path="res://Models/PSXGlassCup.glb" id="2_mq4s1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mq4s1"]
+albedo_color = Color(0.3536592, 0.13987747, 0.0005728281, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1yoj2"]
+material = SubResource("StandardMaterial3D_mq4s1")
+top_radius = 0.85
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p445j"]
+size = Vector3(1.741478, 2.0447083, 2.0441284)
+
+[node name="Cafe" type="RigidBody3D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_p445j")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.031339765, -0.00165236, -0.023836508)
+mesh = SubResource("CylinderMesh_1yoj2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.03126788, 0.018576503, -0.01976683)
+shape = SubResource("BoxShape3D_p445j")
+
+[node name="PSXGlassCup" parent="." instance=ExtResource("2_mq4s1")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.031292915, 0, -0.022801518)
